@@ -3,9 +3,8 @@
 import { DataTable } from "@/components/ui/DataTable";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Trash, ExternalLink, Github, Plus } from "lucide-react";
+import { Edit, Trash, ExternalLink, Github } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import {
   Dialog,
@@ -15,11 +14,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ProjectForm } from "./components/ProjectForm";
-import { ProjectFeatures } from "./components/ProjectFeatures";
-import { ProjectCredentials } from "./components/ProjectCredentials";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axiosInstance from "@/lib/axios";
 
 interface Project {
@@ -40,7 +36,6 @@ interface Project {
 export default function ProjectsPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const columns: ColumnDef<Project>[] = [
@@ -197,10 +192,6 @@ export default function ProjectsPage() {
     if (window.confirm("Are you sure you want to delete this project?")) {
       deleteMutation.mutate(id);
     }
-  };
-
-  const handleViewDetails = (id: string) => {
-    setSelectedProjectId(id);
   };
 
   const handleSubmit = async (data: Omit<Project, "id" | "createdAt" | "updatedAt">) => {
