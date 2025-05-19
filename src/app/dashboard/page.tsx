@@ -1,14 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  BookOpen,
-  User,
   Briefcase,
   Code2,
-  GraduationCap,
   FileText,
-  Settings,
-  Star,
-  Key,
 } from "lucide-react";
 
 const stats = [
@@ -29,12 +23,6 @@ const stats = [
     value: "15",
     icon: Code2,
     color: "text-purple-500",
-  },
-  {
-    title: "Education",
-    value: "3",
-    icon: GraduationCap,
-    color: "text-yellow-500",
   },
 ];
 

@@ -3,16 +3,11 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
-  BookOpen,
   User,
   Briefcase,
   Code2,
-  GraduationCap,
   FileText,
-  Settings,
   LayoutDashboard,
-  Star,
-  Key,
 } from 'lucide-react';
 
 const navigation = [
@@ -20,11 +15,7 @@ const navigation = [
   { name: 'About', href: '/dashboard/about', icon: User },
   { name: 'Blogs', href: '/dashboard/blogs', icon: FileText },
   { name: 'Projects', href: '/dashboard/projects', icon: Briefcase },
-  { name: 'Project Features', href: '/dashboard/project-features', icon: Star },
-  { name: 'Project Credentials', href: '/dashboard/project-credentials', icon: Key },
   { name: 'Skills', href: '/dashboard/skills', icon: Code2 },
-  { name: 'Skill Categories', href: '/dashboard/skill-categories', icon: Settings },
-  { name: 'Education', href: '/dashboard/education', icon: GraduationCap },
 ];
 
 export function Sidebar() {
