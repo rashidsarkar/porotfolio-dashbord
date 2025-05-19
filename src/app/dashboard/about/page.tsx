@@ -26,7 +26,7 @@ interface About {
   experience: string;
   location: string;
   email: string;
-  interests: string[];
+  education: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -54,10 +54,27 @@ export default function AboutPage() {
       header: "Location",
     },
     {
-      accessorKey: "interests",
-      header: "Interests",
+      accessorKey: "education",
+      header: "Education",
       cell: ({ row }) => {
-        return row.original.interests.join(", ");
+        const education = row.original.education;
+        return (
+          <div className="max-w-[300px] truncate" title={education}>
+            {education}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "experience",
+      header: "Experience",
+      cell: ({ row }) => {
+        const experience = row.original.experience;
+        return (
+          <div className="max-w-[300px] truncate" title={experience}>
+            {experience}
+          </div>
+        );
       },
     },
     {
@@ -91,9 +108,10 @@ export default function AboutPage() {
     queryKey: ["abouts"],
     queryFn: async () => {
       const response = await axiosInstance.get("/api/about");
-      return response.data;
+      return response.data.data;
     },
   });
+  console.log(abouts);
 
   const createMutation = useMutation({
     mutationFn: async (data: Omit<About, "id" | "createdAt" | "updatedAt">) => {

@@ -21,10 +21,7 @@ import { Badge } from "@/components/ui/badge";
 interface Skill {
   id: string;
   name: string;
-  categoryId: string;
-  category: {
-    title: string;
-  };
+  category: "FRONTEND" | "BACKEND" | "DATABASE" | "TOOLS";
   createdAt: string;
   updatedAt: string;
 }
@@ -40,12 +37,12 @@ export default function SkillsPage() {
       header: "Name",
     },
     {
-      accessorKey: "category.title",
+      accessorKey: "category",
       header: "Category",
       cell: ({ row }) => {
         return (
           <Badge variant="secondary">
-            {row.original.category.title}
+            {row.original.category}
           </Badge>
         );
       },
@@ -84,9 +81,9 @@ export default function SkillsPage() {
       return response.data.data;
     },
   });
-
+console.log(skills);
   const createMutation = useMutation({
-    mutationFn: async (data: Omit<Skill, "id" | "createdAt" | "updatedAt" | "category">) => {
+    mutationFn: async (data: { name: string; category: "FRONTEND" | "BACKEND" | "DATABASE" | "TOOLS" }) => {
       const response = await axiosInstance.post("/api/skill/create-skill", data);
       return response.data;
     },
@@ -135,6 +132,7 @@ export default function SkillsPage() {
     },
   });
 
+
   const handleEdit = (skill: Skill) => {
     setSelectedSkill(skill);
     setIsOpen(true);
@@ -150,7 +148,7 @@ export default function SkillsPage() {
     if (selectedSkill) {
       updateMutation.mutate({ id: selectedSkill.id, skill: { name: data.name, category: data.category } });
     } else {
-      createMutation.mutate({ name: data.name, categoryId: data.category });
+      createMutation.mutate({ name: data.name, category: data.category });
     }
   };
 
@@ -181,7 +179,7 @@ export default function SkillsPage() {
             <SkillForm
               initialData={selectedSkill ? {
                 name: selectedSkill.name,
-                category: selectedSkill.category.title as "FRONTEND" | "BACKEND" | "DATABASE" | "TOOLS"
+                category: selectedSkill.category
               } : undefined}
               onSubmit={handleSubmit}
             />

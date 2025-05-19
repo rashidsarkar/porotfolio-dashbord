@@ -20,7 +20,7 @@ const aboutSchema = z.object({
   experience: z.string().min(1, "Experience is required"),
   location: z.string().min(1, "Location is required"),
   email: z.string().email("Invalid email address"),
-  interests: z.array(z.string()).min(1, "At least one interest is required"),
+  education: z.string().min(1, "Education is required"),
 });
 
 type AboutFormValues = z.infer<typeof aboutSchema>;
@@ -33,7 +33,7 @@ interface AboutFormProps {
     experience: string;
     location: string;
     email: string;
-    interests: string[];
+    education: string;
   };
   onSubmit: (data: AboutFormValues) => void;
 }
@@ -48,14 +48,11 @@ export function AboutForm({ initialData, onSubmit }: AboutFormProps) {
       experience: "",
       location: "",
       email: "",
-      interests: [],
+      education: "",
     },
   });
 
-  const handleInterestsChange = (value: string) => {
-    const interests = value.split(",").map((interest) => interest.trim());
-    form.setValue("interests", interests);
-  };
+ 
 
   return (
     <Form {...form}>
@@ -154,16 +151,15 @@ export function AboutForm({ initialData, onSubmit }: AboutFormProps) {
 
         <FormField
           control={form.control}
-          name="interests"
+          name="education"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Interests</FormLabel>
+              <FormLabel>Education</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Enter your interests (comma-separated)"
+                  placeholder="Enter your education details"
                   className="min-h-[100px]"
-                  value={field.value.join(", ")}
-                  onChange={(e) => handleInterestsChange(e.target.value)}
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
