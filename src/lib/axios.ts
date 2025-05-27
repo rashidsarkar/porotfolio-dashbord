@@ -1,5 +1,5 @@
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://server-dashbord.vercel.app";
 
 const axiosInstance = axios.create({
@@ -47,4 +47,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance; 
+export default axiosInstance;
