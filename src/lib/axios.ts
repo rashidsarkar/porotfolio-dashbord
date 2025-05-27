@@ -1,12 +1,13 @@
 import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://server-dashbord.vercel.app";
 
 const axiosInstance = axios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true
 });
 
 // Request interceptor
