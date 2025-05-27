@@ -1,7 +1,6 @@
 import axios from "axios";
-
-const baseURL =
-  process.env.NEXT_PUBLIC_API_URL || "https://server-dashbord.vercel.app";
+axios.defaults.withCredentials = true;
+const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://server-dashbord.vercel.app";
 
 const axiosInstance = axios.create({
   baseURL,
