@@ -1,23 +1,23 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://server-dashbord.vercel.app";
+const baseURL =
+  process.env.NEXT_PUBLIC_API_URL || "https://server-dashbord.vercel.app";
 
 const axiosInstance = axios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true
+  withCredentials: true,
 });
 
 // Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    // You can add auth token here if needed
-    // const token = localStorage.getItem("token");
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
